@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Sales by years</h1>
+
+<div id="sales_by_years">
+  <% @sales_by_years.each do |sales_by_year| %>
+    <%= render sales_by_year %>
+    <p>
+      <%= link_to "Show this sales by year", sales_by_year %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New sales by year", new_sales_by_year_path %>

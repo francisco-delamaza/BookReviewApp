@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @sales_by_year %>
+
+<div>
+  <%= link_to "Edit this sales by year", edit_sales_by_year_path(@sales_by_year) %> |
+  <%= link_to "Back to sales by years", sales_by_years_path %>
+
+  <%= button_to "Destroy this sales by year", @sales_by_year, method: :delete %>
+</div>

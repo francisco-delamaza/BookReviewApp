@@ -1,0 +1,32 @@
+<%= form_with(model: sales_by_year) do |form| %>
+  <% if sales_by_year.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(sales_by_year.errors.count, "error") %> prohibited this sales_by_year from being saved:</h2>
+
+      <ul>
+        <% sales_by_year.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :book_id, style: "display: block" %>
+    <%= form.text_field :book_id %>
+  </div>
+
+  <div>
+    <%= form.label :year, style: "display: block" %>
+    <%= form.number_field :year %>
+  </div>
+
+  <div>
+    <%= form.label :sales, style: "display: block" %>
+    <%= form.number_field :sales %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
