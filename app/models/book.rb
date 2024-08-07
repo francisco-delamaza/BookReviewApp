@@ -1,7 +1,11 @@
 class Book < CouchRest::Model::Base
-  property :title, String
-  property :author, String
-  property :review, String
-  property :published_at, Date
-  timestamps!
+  property :name, String
+  property :summary, String
+  property :date_of_publication, Date
+  property :number_of_sales, Integer
+
+  design do
+    view :by_name
+    view :by_date_of_publication
+  end
 end

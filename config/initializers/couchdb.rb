@@ -8,3 +8,4 @@ CouchRest::Model::Base.configure do |config|
   }
   config.database = 'book_review_app_development'
 end
+
