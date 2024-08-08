@@ -1,24 +1,5 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Authors</h1>
-
-<div id="authors">
-  <% if @sorted_authors.nil? %>
-    <p>No authors found</p>
-  <% else %>
-    
-  <% @sorted_authors.each do |author| %>
-    <p>
-      <%= author[:author].name %>
-    </p>
-    <p>
-      <%= link_to "Show this author", author_path(author[:author].id)%>
-    </p>
-  <% end %>
-  <% end %>
-</div>
-
-<%= link_to "New author", new_author_path %>
 <h1>Autores</h1>
 <table>
   <thead>

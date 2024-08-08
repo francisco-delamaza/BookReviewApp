@@ -12,7 +12,7 @@ SalesByYear.all.each(&:destroy)
     name: Faker::Book.author,
     date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 90),
     country_of_origin: Faker::Address.country,
-    short_description: Faker::Lorem.sentence(word_count: 10)
+    short_description: Faker::Lorem.sentence(word_count: 8)
   )
 end
 # Generación de libros
@@ -21,9 +21,9 @@ authors.shuffle.each do |author|
   6.times do
   book = Book.create!(
     name: Faker::Book.title,
-    summary: Faker::Lorem.paragraph(sentence_count: 5),
+    summary: Faker::Lorem.paragraph(sentence_count: 3),
     date_of_publication: Faker::Date.between(from: '1900-01-01', to: Date.today),
-    number_of_sales: Faker::Number.number(digits: 6),
+    number_of_sales: Faker::Number.between(from: 1000, to: 100000),
     author_id: author.id
   )
 
@@ -31,7 +31,7 @@ authors.shuffle.each do |author|
   rand(1..10).times do
     Review.create!(
       book_id: book.id,
-      review: Faker::Lorem.paragraph(sentence_count: 3),
+      review: Faker::Lorem.paragraph(sentence_count: 1),
       score: rand(1..5),
       number_of_up_votes: Faker::Number.between(from: 1, to: 100)
     )

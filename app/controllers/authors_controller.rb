@@ -12,11 +12,11 @@ class AuthorsController < ApplicationController
         num_books = books.count()
         
         # Calculamos las ventas totales sumando las ventas de cada libro
-        total_sales = SalesByYear.by_book_id(keys: books.map(&:id)) 
+        total_sales = SalesByYear.by_book_id(keys: books.map(&:id)).map(&:sales).sum
         
         # Calculamos la puntuación promedio de las reseñas
         reviews = Review.by_book_id(keys: books.map(&:id))
-        average_score = reviews.map(&:score).sum / reviews.length.to_f if reviews.present?
+        average_score = (reviews.map(&:score).sum / reviews.length.to_f).round(3) if reviews.present?
         
         # Retornamos un hash con la información del autor
         {
@@ -34,7 +34,12 @@ class AuthorsController < ApplicationController
       else
         @sorted_authors = authors_data
       end
-    end
+  end
+
+  def crud
+      # Construimos la lista de autores con información adicional
+      @authors = Author.all
+  end
 
   # GET /authors/1 or /authors/1.json
   def show

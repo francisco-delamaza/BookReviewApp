@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Authors</h1>
+
+<div id="authors">
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date of Birth</th>
+    <th>Country of origin</th>
+    <th>Description</th>
+    <th>Details</th>
+  </tr>
+  <% @authors.each do |author| %>
+  <tr>
+    <td><%= author.name %></td>
+    <td><%= author.date_of_birth %></td>
+    <td><%= author.country_of_origin %></td>
+    <td><%= author.short_description %></td>
+    <td><%= link_to "Show", author %></td>
+  </tr>
+  <% end %>
+</table>
+</div>
+<div>
+<%= link_to "New author", new_author_path %>
+</div>
+<div>
+<%= link_to "Home", root_path %>
+</div>

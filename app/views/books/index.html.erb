@@ -3,12 +3,28 @@
 <h1>Books</h1>
 
 <div id="books">
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Summary</th>
+    <th>Date of publication</th>
+    <th>Number of sales</th>
+    <th>Details</th>
+  </tr>
   <% @books.each do |book| %>
-    <%= render book %>
-    <p>
-      <%= link_to "Show this book", book %>
-    </p>
+  <tr>
+    <td><%= book.name %></td>
+    <td><%= book.summary %></td>
+    <td><%= book.date_of_publication %></td>
+    <td><%= book.number_of_sales %></td>
+    <td><%= link_to "Show", book %></td>
+  </tr>
   <% end %>
+</table>
 </div>
-
+<div>
 <%= link_to "New book", new_book_path %>
+</div>
+<div>
+<%= link_to "Home", root_path %>
+</div>
