@@ -99,33 +99,42 @@ class BooksController < ApplicationController
       .take(50)
   end
   def search
-
-    
+    # Aquí no es necesario hacer nada, solo se muestra el formulario
   end
-
+  
   def search_result
-       # Convertir el texto de búsqueda a minúsculas y dividirlo en palabras clave
-       
-        # Convertir el texto de búsqueda a minúsculas y dividirlo en palabras clave
-        search_text = params[:search].downcase.split
-      
-        # Definir la cantidad de resultados por página
-        per_page = 10
-        page = params[:page].to_i > 0 ? params[:page].to_i : 1
-        skip = (page - 1) * per_page
-      
-        # Buscar los libros que contengan alguna de las palabras clave en el resumen
-        @books = Book.by_summary.keys(search_text).limit(per_page)
-      
-        # Obtener el total de resultados para manejar la paginación
-        total_books = Book.by_summary.keys(search_text).count
-      
-        # Calcular el número total de páginas
-        @total_pages = (total_books / per_page.to_f).ceil
-        @current_page = page
-    
-      
+    # Convertir el texto de búsqueda a minúsculas y dividirlo en palabras clave
+    search_text = params[:search].downcase.split
+  
+    # Definir la cantidad de resultados por página
+    per_page = 10
+    page = params[:page].to_i > 0 ? params[:page].to_i : 1
+    skip = (page - 1) * per_page
+  
+    # Buscar los libros que contengan alguna de las palabras clave en el resumen
+    view = Book.by_summary
+    @books = [
+      Book.new(name: "El libro de la vida", summary: "Un libro sobre la vida y sus misterios."),
+      Book.new(name: "El camino del guerrero", summary: "Explora el viaje interno de un guerrero."),
+      Book.new(name: "El arte de la paz", summary: "Una guía para encontrar paz interior."),
+      Book.new(name: "El fin del mundo", summary: "Una novela distópica sobre el fin de la civilización."),
+      Book.new(name: "El poder del ahora", summary: "Un manual para vivir en el presente."),
+      Book.new(name: "El principito", summary: "Una historia filosófica para todas las edades."),
+      Book.new(name: "El alquimista", summary: "Una fábula sobre seguir tus sueños."),
+      Book.new(name: "El señor de los anillos", summary: "Una épica fantasía sobre la lucha entre el bien y el mal."),
+      Book.new(name: "El guardián entre el centeno", summary: "Una novela sobre la alienación en la sociedad moderna."),
+      Book.new(name: "El lobo estepario", summary: "Un relato introspectivo sobre la dualidad del ser humano.")
+    ]
+    puts @books
+    puts "-----------------"
+    # Obtener el total de resultados para manejar la paginación
+    total_books = view.keys(search_text).count
+  
+    # Calcular el número total de páginas
+    @total_pages = (total_books / per_page.to_f).ceil
+    @current_page = page
   end
+  
   
   private
     # Use callbacks to share common setup or constraints between actions.
