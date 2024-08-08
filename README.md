@@ -33,6 +33,6 @@ Ejecuta el siguiente comando para poblar la base de datos con datos iniciales:
 
 Finalmente, inicia el servidor Rails ejecutando el siguiente comando:
 
-```ails server```
+```rails server```
 
 La aplicación estará disponible en http://localhost:3000.
