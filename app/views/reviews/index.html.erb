@@ -17,7 +17,7 @@
     <td><%= review[:review].review %></td>
     <td><%= review[:review].score %></td>
     <td><%= review[:review].number_of_up_votes %></td>
-    <td><%= link_to "Show", review %></td>
+    <td><%= link_to "Show", review[:review] %></td>
   </tr>
   <% end %>
 </table>

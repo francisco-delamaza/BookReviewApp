@@ -15,7 +15,7 @@
     <td><%= sales_by_year[:book_name] %></td>
     <td><%= sales_by_year[:sales_by_year].year %></td>
     <td><%= sales_by_year[:sales_by_year].sales %></td>
-    <td><%= link_to "Show", sales_by_year %></td>
+    <td><%= link_to "Show", sales_by_year[:sales_by_year] %></td>
   </tr>
   <% end %>
 </table>
