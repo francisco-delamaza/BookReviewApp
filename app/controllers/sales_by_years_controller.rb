@@ -6,9 +6,10 @@ class SalesByYearsController < ApplicationController
     @sales_by_years = SalesByYear.all
     @books = Book.all
     @sales_with_books = @sales_by_years.map do |sales_by_year|
+      book = @books.select{|book| book.id == sales_by_year.book_id}.first
       {
         sales_by_year: sales_by_year,
-        book_name: @books.select{|book| book.id == sales_by_year.book_id}.first.name
+        book_name: book ? book.name : "LOST DATA"
       }
     end
   end
@@ -56,7 +57,7 @@ class SalesByYearsController < ApplicationController
 
   # DELETE /sales_by_years/1 or /sales_by_years/1.json
   def destroy
-    @sales_by_year.destroy!
+    SalesByYear.get(@sales_by_year.id).destroy
 
     respond_to do |format|
       format.html { redirect_to sales_by_years_url, notice: "Sales by year was successfully destroyed." }

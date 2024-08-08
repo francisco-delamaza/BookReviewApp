@@ -85,10 +85,10 @@ class AuthorsController < ApplicationController
 
   # DELETE /authors/1 or /authors/1.json
   def destroy
-    @author.destroy!
+    Author.get(@author.id).destroy
 
     respond_to do |format|
-      format.html { redirect_to authors_url, notice: "Author was successfully destroyed." }
+      format.html { redirect_to crud_authors_url, notice: "Author was successfully destroyed." }
       format.json { head :no_content }
     end
   end

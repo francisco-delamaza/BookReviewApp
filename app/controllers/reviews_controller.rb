@@ -6,9 +6,10 @@ class ReviewsController < ApplicationController
     @reviews = Review.all
     @books = Book.all
     @reviews_with_books = @reviews.map do |review|
+      book = @books.select{|book| book.id == review.book_id}.first
       {
         review: review,
-        book_name: @books.select{|book| book.id == review.book_id}.first.name
+        book_name: book ? book.name : "LOST DATA"
       }
     end
   end
@@ -56,7 +57,7 @@ class ReviewsController < ApplicationController
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
-    @review.destroy!
+    Review.get(@review.id).destroy
 
     respond_to do |format|
       format.html { redirect_to reviews_url, notice: "Review was successfully destroyed." }
