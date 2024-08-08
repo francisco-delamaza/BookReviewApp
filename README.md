@@ -3,9 +3,9 @@
 ## Book Review App
 Una aplicación web para la gestión de reseñas de libros utilizando Ruby on Rails y CouchDB.
 
-Requisitos
-Ruby (versión especificada en el Gemfile)
-Rails (versión especificada en el Gemfile)
+Requisitos:
+Ruby (versión especificada en el Gemfile), 
+Rails (versión especificada en el Gemfile) y 
 CouchDB
 
 
