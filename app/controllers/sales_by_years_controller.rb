@@ -4,6 +4,13 @@ class SalesByYearsController < ApplicationController
   # GET /sales_by_years or /sales_by_years.json
   def index
     @sales_by_years = SalesByYear.all
+    @books = Book.all
+    @sales_with_books = @sales_by_years.map do |sales_by_year|
+      {
+        sales_by_year: sales_by_year,
+        book_name: @books.select{|book| book.id == sales_by_year.book_id}.first.name
+      }
+    end
   end
 
   # GET /sales_by_years/1 or /sales_by_years/1.json

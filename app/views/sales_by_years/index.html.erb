@@ -10,11 +10,11 @@
     <th>Sales</th>
     <th>Details</th>
   </tr>
-  <% @sales_by_years.each do |sales_by_year| %>
+  <% @sales_with_books.each do |sales_by_year| %>
   <tr>
-    <td><%= sales_by_year.book_id %></td>
-    <td><%= sales_by_year.year %></td>
-    <td><%= sales_by_year.sales %></td>
+    <td><%= sales_by_year[:book_name] %></td>
+    <td><%= sales_by_year[:sales_by_year].year %></td>
+    <td><%= sales_by_year[:sales_by_year].sales %></td>
     <td><%= link_to "Show", sales_by_year %></td>
   </tr>
   <% end %>

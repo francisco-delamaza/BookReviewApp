@@ -4,6 +4,13 @@ class ReviewsController < ApplicationController
   # GET /reviews or /reviews.json
   def index
     @reviews = Review.all
+    @books = Book.all
+    @reviews_with_books = @reviews.map do |review|
+      {
+        review: review,
+        book_name: @books.select{|book| book.id == review.book_id}.first.name
+      }
+    end
   end
 
   # GET /reviews/1 or /reviews/1.json

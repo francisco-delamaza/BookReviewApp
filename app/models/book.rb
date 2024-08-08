@@ -5,6 +5,10 @@ class Book < CouchRest::Model::Base
     property :number_of_sales, Integer
     property :author_id, String
 
+    def author
+      Author.find(author_id)
+    end
+
     design do
       view :by_name
       view :by_date_of_publication

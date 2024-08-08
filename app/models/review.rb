@@ -3,6 +3,10 @@ class Review < CouchRest::Model::Base
     property :review, String
     property :score, Integer
     property :number_of_up_votes, Integer
+
+    def book
+      Book.find(book_id)
+    end
   
     design do
       view :by_book_id
