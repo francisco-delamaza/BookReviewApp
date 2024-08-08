@@ -9,5 +9,13 @@ class Book < CouchRest::Model::Base
       view :by_name
       view :by_date_of_publication
       view :by_author_id
+      view :by_summary,
+         map: "function(doc) {
+           if (doc['type'] == 'Book' && doc['summary']) {
+             doc['summary'].toLowerCase().split(' ').forEach(function(word) {
+               emit(word, null);
+             });
+           }
+         }"
     end
 end

@@ -99,10 +99,32 @@ class BooksController < ApplicationController
       .take(50)
   end
   def search
-    search_text = params[:search].downcase.split
-    @books = Book.all.select do |book|
-      search_text.any? { |word| book.summary.downcase.include?(word) }
-    end.paginate(page: params[:page], per_page: 10)
+
+    
+  end
+
+  def search_result
+       # Convertir el texto de búsqueda a minúsculas y dividirlo en palabras clave
+       
+        # Convertir el texto de búsqueda a minúsculas y dividirlo en palabras clave
+        search_text = params[:search].downcase.split
+      
+        # Definir la cantidad de resultados por página
+        per_page = 10
+        page = params[:page].to_i > 0 ? params[:page].to_i : 1
+        skip = (page - 1) * per_page
+      
+        # Buscar los libros que contengan alguna de las palabras clave en el resumen
+        @books = Book.by_summary.keys(search_text).limit(per_page)
+      
+        # Obtener el total de resultados para manejar la paginación
+        total_books = Book.by_summary.keys(search_text).count
+      
+        # Calcular el número total de páginas
+        @total_pages = (total_books / per_page.to_f).ceil
+        @current_page = page
+    
+      
   end
   
   private

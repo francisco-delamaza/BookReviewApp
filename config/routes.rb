@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get 'top_rated_books'
       get 'top_selling_books'
       get 'search'
+      get 'search_result'
     end
   end
   resources :authors
