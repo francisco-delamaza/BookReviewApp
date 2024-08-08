@@ -4,8 +4,8 @@ CouchRest::Model::Base.configure do |config|
     host: '127.0.0.1',
     port: 5984,
     username: 'admin',
-    password: 'Admin12345'
+    password: 'password'
   }
-  config.database = 'book_review_app_development'
+  config.database = 'assignment_1'
 end
 

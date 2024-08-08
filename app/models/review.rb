@@ -6,6 +6,5 @@ class Review < CouchRest::Model::Base
   
     design do
       view :by_book_id
-      view :by_score
     end
 end
