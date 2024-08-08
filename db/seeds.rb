@@ -1,87 +1,53 @@
-# db/seeds.rb
+require 'faker'
 
-# Crear Autores
-author1 = Author.create!(
-  name: "Gabriel García Márquez",
-  date_of_birth: "1927-03-06",
-  country_of_origin: "Colombia",
-  short_description: "Escritor colombiano, autor de 'Cien años de soledad'."
-)
+# Limpieza de la base de datos
+Author.all.each(&:destroy)
+Book.all.each(&:destroy)
+Review.all.each(&:destroy)
+SalesByYear.all.each(&:destroy)
 
-author2 = Author.create!(
-  name: "Jane Austen",
-  date_of_birth: "1775-12-16",
-  country_of_origin: "Inglaterra",
-  short_description: "Escritora inglesa, conocida por 'Orgullo y Prejuicio'."
-)
+# Generación de autores
+50.times do
+  Author.create!(
+    name: Faker::Book.author,
+    date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 90),
+    country_of_origin: Faker::Address.country,
+    short_description: Faker::Lorem.sentence(word_count: 10)
+  )
+end
+# Generación de libros
+authors = Author.all.to_a
+authors.shuffle.each do |author|
+  6.times do
+  book = Book.create!(
+    name: Faker::Book.title,
+    summary: Faker::Lorem.paragraph(sentence_count: 5),
+    date_of_publication: Faker::Date.between(from: '1900-01-01', to: Date.today),
+    number_of_sales: Faker::Number.number(digits: 6),
+    author_id: author.id
+  )
 
-# Crear Libros
-book1 = Book.create!(
-  name: "Cien años de soledad",
-  summary: "Una novela épica sobre la historia de la familia Buendía.",
-  date_of_publication: "1967-05-30",
-  number_of_sales: 5000000,
-  author_id: author1.id
-)
+  # Generación de reseñas para cada libro
+  rand(1..10).times do
+    Review.create!(
+      book_id: book.id,
+      review: Faker::Lorem.paragraph(sentence_count: 3),
+      score: rand(1..5),
+      number_of_up_votes: Faker::Number.between(from: 1, to: 100)
+    )
+  end
 
-book2 = Book.create!(
-  name: "Orgullo y Prejuicio",
-  summary: "Una historia de amor y prejuicios sociales en la Inglaterra del siglo XIX.",
-  date_of_publication: "1813-01-28",
-  number_of_sales: 2000000,
-  author_id: author2.id
-)
+  # Generación de ventas por año para cada libro
+  start_year = book.date_of_publication.year
+  (start_year..(start_year + 5)).each do |year|
+    SalesByYear.create!(
+      book_id: book.id,
+      year: year,
+      sales: Faker::Number.between(from: 1000, to: 50000)
+    )
+  end
+end
+end
 
-# Crear Reseñas
-Review.create!(
-  book_id: book1.id,
-  review: "Una obra maestra de la literatura latinoamericana.",
-  score: 5,
-  number_of_up_votes: 100
-)
 
-Review.create!(
-  book_id: book1.id,
-  review: "Un poco confusa en algunos capítulos, pero excelente en general.",
-  score: 4,
-  number_of_up_votes: 50
-)
-
-Review.create!(
-  book_id: book2.id,
-  review: "Una historia cautivadora con personajes memorables.",
-  score: 5,
-  number_of_up_votes: 150
-)
-
-Review.create!(
-  book_id: book2.id,
-  review: "Un clásico imprescindible de la literatura inglesa.",
-  score: 5,
-  number_of_up_votes: 200
-)
-
-# Crear Ventas por Año
-SalesByYear.create!(
-  book_id: book1.id,
-  year: 1967,
-  sales: 1000000
-)
-
-SalesByYear.create!(
-  book_id: book1.id,
-  year: 1968,
-  sales: 2000000
-)
-
-SalesByYear.create!(
-  book_id: book2.id,
-  year: 1813,
-  sales: 500000
-)
-
-SalesByYear.create!(
-  book_id: book2.id,
-  year: 1814,
-  sales: 1000000
-)
+puts "Datos generados con éxito!"
