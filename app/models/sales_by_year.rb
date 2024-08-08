@@ -6,5 +6,6 @@ class SalesByYear < CouchRest::Model::Base
     design do
       view :by_book_id
       view :by_year
+      view :by_sales
     end
 end

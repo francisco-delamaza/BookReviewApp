@@ -1,0 +1,23 @@
+<h1>Top 10 Libros Mejor Calificados</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Libro</th>
+      <th>Puntuación Promedio</th>
+      <th>Reseña con Mayor Puntuación</th>
+      <th>Reseña con Menor Puntuación</th>
+      <th>Reseña más Popular</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book[:book].name %></td>
+        <td><%= book[:avg_score] %></td>
+        <td><%= book[:highest_review].review %></td>
+        <td><%= book[:lowest_review].review %></td>
+        <td><%= book[:most_popular_review].review %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

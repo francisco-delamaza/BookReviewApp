@@ -1,0 +1,27 @@
+<h1>Top 50 Libros Más Vendidos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Libro</th>
+      <th>Ventas Totales</th>
+      <th>Ventas del Autor</th>
+      <th>Top 5 Ventas en el Año de Publicación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book[:book].name %></td>
+        <td><%= book[:total_sales] %></td>
+        <td><%= book[:author_sales] %></td>
+        <td>
+          <ul>
+            <% book[:top_5_sales_year].each do |sale| %>
+              <li><%= sale.year %>: <%= sale.sales %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

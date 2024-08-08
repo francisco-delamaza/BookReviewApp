@@ -1,0 +1,16 @@
+<h1>Resultados de la Búsqueda</h1>
+<%= form_with url: search_books_path, method: :get, local: true do %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag 'Buscar' %>
+<% end %>
+
+<% if @books.any? %>
+  <ul>
+    <% @books.each do |book| %>
+      <li><%= book.name %> - <%= book.summary %></li>
+    <% end %>
+  </ul>
+  <%= paginate @books %>
+<% else %>
+  <p>No se encontraron libros que coincidan con la búsqueda.</p>
+<% end %>

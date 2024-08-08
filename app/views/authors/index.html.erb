@@ -3,12 +3,44 @@
 <h1>Authors</h1>
 
 <div id="authors">
-  <% @authors.each do |author| %>
-    <%= render author %>
+  <% if @sorted_authors.nil? %>
+    <p>No authors found</p>
+  <% else %>
+    
+  <% @sorted_authors.each do |author| %>
     <p>
-      <%= link_to "Show this author", author %>
+      <%= author[:author].name %>
     </p>
+    <p>
+      <%= link_to "Show this author"%>
+    </p>
+  <% end %>
   <% end %>
 </div>
 
 <%= link_to "New author", new_author_path %>
+<h1>Autores</h1>
+<table>
+  <thead>
+    <tr>
+      <th><%= link_to 'Nombre', authors_path(sort_by: 'name') %></th>
+      <th><%= link_to 'Número de Libros', authors_path(sort_by: 'num_books') %></th>
+      <th><%= link_to 'Puntuación Promedio', authors_path(sort_by: 'average_score') %></th>
+      <th><%= link_to 'Ventas Totales', authors_path(sort_by: 'total_sales') %></th>
+    </tr>
+  </thead>
+  <tbody>
+   <% if @sorted_authors.nil? %>
+   <p>No authors found</p>
+  <% else %>
+    <% @sorted_authors.each do |author| %>
+      <tr>
+        <td><%= author[:author].name %></td>
+        <td><%= author[:num_books] %></td>
+        <td><%= author[:average_score] %></td>
+        <td><%= author[:total_sales] %></td>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -3,8 +3,38 @@ class AuthorsController < ApplicationController
 
   # GET /authors or /authors.json
   def index
-    @authors = Author.all
-  end
+      # Construimos la lista de autores con información adicional
+      authors_data = Author.all.map do |author|
+        # Obtenemos todos los libros del autor actual
+        books = Book.by_author_id(key: author.id)
+        
+        # Contamos el número de libros
+        num_books = books.count()
+        
+        # Calculamos las ventas totales sumando las ventas de cada libro
+        total_sales = SalesByYear.by_book_id(keys: books.map(&:id)) 
+        
+        # Calculamos la puntuación promedio de las reseñas
+        reviews = Review.by_book_id(keys: books.map(&:id))
+        average_score = reviews.map(&:score).sum / reviews.length.to_f if reviews.present?
+        
+        # Retornamos un hash con la información del autor
+        {
+          author: author,
+          num_books: num_books,
+          total_sales: total_sales,
+          average_score: average_score || 0
+        }
+      end
+      
+      # Opcional: ordenar y filtrar según los parámetros
+      if params[:sort_by]
+        @sorted_authors = authors_data.sort_by { |author_data| author_data[params[:sort_by].to_sym] }
+        @sorted_authors.reverse! if params[:direction] == "desc"
+      else
+        @sorted_authors = authors_data
+      end
+    end
 
   # GET /authors/1 or /authors/1.json
   def show
