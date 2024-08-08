@@ -4,10 +4,19 @@
 <table>
   <thead>
     <tr>
-      <th><%= link_to 'Nombre', authors_path(sort_by: 'name') %></th>
-      <th><%= link_to 'Número de Libros', authors_path(sort_by: 'num_books') %></th>
-      <th><%= link_to 'Puntuación Promedio', authors_path(sort_by: 'average_score') %></th>
-      <th><%= link_to 'Ventas Totales', authors_path(sort_by: 'total_sales') %></th>
+    <th>
+    <%= link_to 'Nombre', authors_path(sort_by: 'name', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %>
+  </th>
+  <th>
+    <%= link_to 'Número de Libros', authors_path(sort_by: 'num_books', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %>
+  </th>
+  <th>
+    <%= link_to 'Puntuación Promedio', authors_path(sort_by: 'average_score', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %>
+  </th>
+  <th>
+    <%= link_to 'Ventas Totales', authors_path(sort_by: 'total_sales', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %>
+  </th>
+  
     </tr>
   </thead>
   <tbody>
