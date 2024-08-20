@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - couchdb
+    environment:
+      COUCHDB_HOST: couchdb
+      COUCHDB_PORT: 5984
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: password
+      COUCHDB_DATABASE: couchdb
+      SECRET_KEY_BASE: 6c89a3583b1b6d6ed76184b797a1edfda33d325b90baa4d515f679a6f38eaa64a5e07f9a3a15dfc5d36b322e3da669868d7213e60356d891d935c5ad0b0b3932
+    volumes:
+      - .:/rails
+    command: ./bin/rails server -b 0.0.0.0
+
+  couchdb:
+    image: couchdb:3.2
+    ports:
+      - "5984:5984"
+    environment:
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: password
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+
+volumes:
+  couchdb_data:

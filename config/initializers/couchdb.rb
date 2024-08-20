@@ -1,11 +1,10 @@
 CouchRest::Model::Base.configure do |config|
   config.connection = {
     protocol: 'http',
-    host: '127.0.0.1',
-    port: 5984,
-    username: 'admin',
-    password: 'Admin12345'
+    host: ENV['COUCHDB_HOST'] || '127.0.0.1',
+    port: ENV['COUCHDB_PORT'] || 5984,
+    username: ENV['COUCHDB_USER'] || 'admin',
+    password: ENV['COUCHDB_PASSWORD'] || 'password'
   }
-  config.database = 'book_review_app_development'
+  config.database = ENV['COUCHDB_DATABASE'] || 'couchdb'
 end
-

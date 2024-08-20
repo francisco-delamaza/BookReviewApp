@@ -1,13 +1,10 @@
 require 'faker'
 
 # Limpieza de la base de datos
-Author.all.each(&:destroy)
-Book.all.each(&:destroy)
-Review.all.each(&:destroy)
-SalesByYear.all.each(&:destroy)
+
 
 # Generación de autores
-50.times do
+2.times do
   Author.create!(
     name: Faker::Book.author,
     date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 90),
@@ -18,7 +15,7 @@ end
 # Generación de libros
 authors = Author.all.to_a
 authors.shuffle.each do |author|
-  6.times do
+  2.times do
   book = Book.create!(
     name: Faker::Book.title,
     summary: Faker::Lorem.paragraph(sentence_count: 3),
@@ -28,7 +25,7 @@ authors.shuffle.each do |author|
   )
 
   # Generación de reseñas para cada libro
-  rand(1..10).times do
+  rand(1..3).times do
     Review.create!(
       book_id: book.id,
       review: Faker::Lorem.paragraph(sentence_count: 1),
