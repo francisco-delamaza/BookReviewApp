@@ -5,8 +5,9 @@ Una aplicación web para la gestión de reseñas de libros utilizando Ruby on Ra
 
 Requisitos:
 Ruby (versión especificada en el Gemfile), 
-Rails (versión especificada en el Gemfile) y 
-CouchDB
+Rails (versión especificada en el Gemfile), 
+CouchDB,
+Docker
 
 
 # Instalar las dependencias del proyecto
@@ -36,3 +37,24 @@ Finalmente, inicia el servidor Rails ejecutando el siguiente comando:
 ```rails server```
 
 La aplicación estará disponible en http://localhost:3000.
+
+# Conteinerizar la aplicación
+
+Para desplegar la aplicacion y db en contenedores de Docker primero certifica que tengas docker instalado siguiendo las instrucciones en el
+siguiente link https://docs.docker.com/engine/install/ubuntu/. Despues asegurate de que couchdb no este corriendo para evitar conflictos de puerto.
+
+```sudo systemctl stop couchdb```
+
+Por ultimo ejecuta el siguiente comando para armar los contenedores:
+
+```docker-compose up --build```
+
+La aplicación estará disponible en http://localhost:3000.
+
+Para detener y eliminar los contenedores, ejecuta:
+
+```docker-compose down```
+
+# Consideraciones
+
+Por temas de tiempo al generar datos con los contenedores redujimos los datos autogenerados a dos autores con sus libros, ventas y reseñas respectivas. En la tarea pasada se puede ver que la generación de datos era la requerida para esa entrega y que en esta lo cambiamos solo por conveniencia.
