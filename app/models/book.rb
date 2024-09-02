@@ -9,6 +9,12 @@ class Book < CouchRest::Model::Base
       Author.find(author_id)
     end
 
+    after_save :update_cache
+
+    def update_cache
+      Rails.cache.delete("book_#{self.id}_average_score")
+    end
+
     design do
       view :by_name
       view :by_date_of_publication

@@ -5,7 +5,7 @@ ruby "3.1.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
-
+gem 'redis'
 
 gem 'mime-types','~>1.16'
 

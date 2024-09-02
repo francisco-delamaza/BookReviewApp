@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
-
+  
   # GET /books or /books.json
   def index
     @books = Book.all
@@ -56,6 +56,7 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   def top_rated_books
     @books = Review.all
       .group_by(&:book_id)
