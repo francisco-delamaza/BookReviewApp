@@ -30,6 +30,17 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Gemfile
+
+gem 'httpclient'
+
+
+gem 'elasticsearch-model', '~> 7.0'
+gem 'elasticsearch-rails', '~> 7.0'
+
+
+gem 'carrierwave'
+
 gem 'faker'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

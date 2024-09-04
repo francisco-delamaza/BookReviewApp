@@ -1,4 +1,5 @@
-#version: '3.8'
+version: '3.8'
+
 services:
   app:
     build: .
@@ -6,7 +7,8 @@ services:
       - "3000:3000"
     depends_on:
       - couchdb
-      - redis
+      # Agregar elasticsearch como dependencia si se va a utilizar
+      - elasticsearch
     environment:
       RAILS_ENV: development
       COUCHDB_HOST: couchdb
@@ -15,9 +17,10 @@ services:
       COUCHDB_PASSWORD: password
       COUCHDB_DATABASE: couchdb
       SECRET_KEY_BASE: 6c89a3583b1b6d6ed76184b797a1edfda33d325b90baa4d515f679a6f38eaa64a5e07f9a3a15dfc5d36b322e3da669868d7213e60356d891d935c5ad0b0b3932
-      REDIS_URL: redis://redis:6379/0
+      ELASTICSEARCH_URL: http://elasticsearch:9200  # URL para conectarse a Elasticsearch
     volumes:
       - .:/rails
+      - ./public/uploads:/rails/public/uploads
     command: ./bin/rails server -b 0.0.0.0
 
   couchdb:
@@ -29,12 +32,6 @@ services:
       COUCHDB_PASSWORD: password
     volumes:
       - couchdb_data:/opt/couchdb/data
-
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
-    command: redis-server
 
 volumes:
   couchdb_data:

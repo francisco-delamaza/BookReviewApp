@@ -11,7 +11,13 @@ Rails.application.configure do
 
   config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
 
-
+  if ENV['REVERSE_PROXY_PRESENT']
+    config.public_file_server.enabled = false
+  else
+    config.public_file_server.enabled = true
+  end
+  
+  config.elasticsearch = { host: 'http://localhost:9200' }
 
   # Do not eager load code on boot.
   config.eager_load = false
