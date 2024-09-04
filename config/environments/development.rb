@@ -17,7 +17,6 @@ Rails.application.configure do
     config.public_file_server.enabled = true
   end
   
-  config.elasticsearch = { host: 'http://localhost:9200' }
 
   # Do not eager load code on boot.
   config.eager_load = false

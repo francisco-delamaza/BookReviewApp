@@ -34,11 +34,6 @@ gem "jbuilder"
 
 gem 'httpclient'
 
-
-gem 'elasticsearch-model', '~> 7.0'
-gem 'elasticsearch-rails', '~> 7.0'
-
-
 gem 'carrierwave'
 
 gem 'faker'
