@@ -15,6 +15,7 @@ services:
       COUCHDB_PASSWORD: password
       COUCHDB_DATABASE: couchdb
       SECRET_KEY_BASE: 6c89a3583b1b6d6ed76184b797a1edfda33d325b90baa4d515f679a6f38eaa64a5e07f9a3a15dfc5d36b322e3da669868d7213e60356d891d935c5ad0b0b3932
+      REVERSE_PROXY_PRESENT: 0
     volumes:
       - .:/rails
       - ./public/uploads:/rails/public/uploads

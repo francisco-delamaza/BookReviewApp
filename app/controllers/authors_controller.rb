@@ -60,6 +60,24 @@ class AuthorsController < ApplicationController
 
   # POST /authors or /authors.json
   def create
+
+    # Manejar la carga de la foto del autor
+    if params[:author][:photo_file]
+      uploaded_file = params[:author][:photo_file]
+      filename = uploaded_file.original_filename
+
+      # Guardar el archivo en la carpeta de uploads
+      filepath = Rails.root.join('public', 'uploads', filename)
+      puts "Guardando foto del autor en: #{filepath}"
+
+      File.open(filepath, 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+
+      # Guardar la ruta en CouchDB
+      author_params[:photo_url] = filename
+    end
+
     @author = Author.new(author_params)
 
     respond_to do |format|
@@ -75,9 +93,30 @@ class AuthorsController < ApplicationController
 
   # PATCH/PUT /authors/1 or /authors/1.json
   def update
+    if params[:author][:cover_file]
+      uploaded_file = params[:author][:cover_file]
+      filename = uploaded_file.original_filename
+
+      # Log para depuración
+      puts "Actualizando archivo: #{filename}"
+
+      # Guarda el archivo en la carpeta de uploads
+      filepath = Rails.root.join('public', 'uploads', filename)
+
+      # Log para depuración
+      puts "Guardando archivo en: #{filepath}"
+
+      File.open(filepath, 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+
+      # Actualiza la ruta en CouchDB
+      @author.photo_url = filename
+    end
+
     respond_to do |format|
-      if @author.update(author_params)
-        format.html { redirect_to author_url(@author), notice: "Author was successfully updated." }
+      if @author.update(author_params.except(:cover_file))
+        format.html { redirect_to author_url(@author), notice: "author was successfully updated." }
         format.json { render :show, status: :ok, location: @author }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -85,6 +124,7 @@ class AuthorsController < ApplicationController
       end
     end
   end
+
 
   # DELETE /authors/1 or /authors/1.json
   def destroy
@@ -104,6 +144,6 @@ class AuthorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def author_params
-      params.require(:author).permit(:name, :date_of_birth, :country_of_origin, :short_description)
+      params.require(:author).permit(:name, :date_of_birth, :country_of_origin, :short_description, :photo_file)
     end
 end

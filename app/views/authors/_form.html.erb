@@ -1,4 +1,4 @@
-<%= form_with(model: author) do |form| %>
+<%= form_with(model: author, local: true, multipart: true) do |form| %>
   <% if author.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(author.errors.count, "error") %> prohibited this author from being saved:</h2>
@@ -29,6 +29,10 @@
   <div>
     <%= form.label :short_description, style: "display: block" %>
     <%= form.text_field :short_description %>
+  </div>
+  <div>
+    <%= form.label :photo_file, "Upload Photo", style: "display: block" %>
+    <%= form.file_field :photo_file %>
   </div>
 
   <div>

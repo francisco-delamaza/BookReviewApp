@@ -23,6 +23,27 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
 
+    if params[:book][:cover_file]
+      uploaded_file = params[:book][:cover_file]
+      filename = uploaded_file.original_filename
+
+      # Log para depuración
+      puts "Subiendo archivo: #{filename}"
+
+      # Guarda el archivo en la carpeta de uploads
+      filepath = Rails.root.join('public', 'uploads', filename)
+
+      # Log para depuración
+      puts "Guardando archivo en: #{filepath}"
+
+      File.open(filepath, 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+
+      # Guarda la ruta en CouchDB
+      @book.cover_url = filename
+    end
+
     respond_to do |format|
       if @book.save
         format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
@@ -36,8 +57,29 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1 or /books/1.json
   def update
+    if params[:book][:cover_file]
+      uploaded_file = params[:book][:cover_file]
+      filename = uploaded_file.original_filename
+
+      # Log para depuración
+      puts "Actualizando archivo: #{filename}"
+
+      # Guarda el archivo en la carpeta de uploads
+      filepath = Rails.root.join('public', 'uploads', filename)
+
+      # Log para depuración
+      puts "Guardando archivo en: #{filepath}"
+
+      File.open(filepath, 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+
+      # Actualiza la ruta en CouchDB
+      @book.cover_url = filename
+    end
+
     respond_to do |format|
-      if @book.update(book_params)
+      if @book.update(book_params.except(:cover_file))
         format.html { redirect_to book_url(@book), notice: "Book was successfully updated." }
         format.json { render :show, status: :ok, location: @book }
       else
@@ -133,6 +175,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:name, :summary, :date_of_publication, :number_of_sales)
+      params.require(:book).permit(:name, :summary, :date_of_publication, :number_of_sales, :cover_file)
     end
 end

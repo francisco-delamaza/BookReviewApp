@@ -1,5 +1,14 @@
 <div id="<%= dom_id author %>">
+<% if author.photo_url.present? %>
   <p>
+    <strong>Photo:</strong>
+    <%= image_tag("/uploads/#{author.photo_url}", alt: 'Author Photo', style: 'max-width: 200px;') %>
+    
+  </p>
+<% end %>
+
+
+<p>
     <strong>Name:</strong>
     <%= author.name %>
   </p>

@@ -1,4 +1,11 @@
 <div id="<%= dom_id book %>">
+  
+  <% if book.cover_url.present? %>
+    <p>
+      <strong>Cover Image:</strong>
+      <%= image_tag("/uploads/#{book.cover_url}", alt: 'Book Cover', style: 'max-width: 200px;') %>
+    </p>
+  <% end %>
   <p>
     <strong>Name:</strong>
     <%= book.name %>
@@ -18,5 +25,7 @@
     <strong>Number of sales:</strong>
     <%= book.number_of_sales %>
   </p>
+
+  
 
 </div>

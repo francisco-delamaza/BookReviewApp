@@ -4,7 +4,9 @@ class Book < CouchRest::Model::Base
     property :date_of_publication, Date
     property :number_of_sales, Integer
     property :author_id, String
+    property :cover_url, String 
 
+  
 
     # Método para obtener el autor del libro
     def author
@@ -24,7 +26,16 @@ class Book < CouchRest::Model::Base
 
     
 
-    
+    def cover_file=(file)
+      uploader = BookCoverUploader.new
+      uploader.store!(file)
+      self.cover_url = uploader.filename
+    end
+  
+    # Define cómo obtener la URL del archivo cargado
+    def cover_url
+      "#{self[:cover_url]}"
+    end
 
 
 

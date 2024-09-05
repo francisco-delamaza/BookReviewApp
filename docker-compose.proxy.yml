@@ -9,3 +9,6 @@ services:
       - app
     volumes:
       - ./app/default.vcl:/etc/varnish/default.vcl
+  app:
+    environment:
+      reverse_proxy_present: 1
