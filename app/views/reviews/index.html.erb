@@ -14,7 +14,7 @@
   <% @reviews_with_books.each do |review| %>
   <tr>
     <td><%= review[:book_name] %></td>
-    <td><%= review[:review].review %></td>
+    <td><%= review[:review].description %></td>
     <td><%= review[:review].score %></td>
     <td><%= review[:review].number_of_up_votes %></td>
     <td><%= link_to "Show", review[:review] %></td>

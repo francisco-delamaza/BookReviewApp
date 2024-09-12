@@ -1,4 +1,6 @@
 class Book < CouchRest::Model::Base
+    require 'opensearch/model'
+
     property :name, String
     property :summary, String
     property :date_of_publication, Date
@@ -6,7 +8,22 @@ class Book < CouchRest::Model::Base
     property :author_id, String
     property :cover_url, String 
 
+    include OpenSearch::Model
+    include OpenSearch::Model::Callbacks
+
+    settings do
+      mappings dynamic: false do
+        indexes :name, type: :text
+        indexes :summary, type: :text
+        indexes :date_of_publication, type: :date
+        indexes :number_of_sales, type: :integer
+        indexes :author_id, type: :keyword
+      end
+    end
   
+    def as_indexed_json(options = {})
+        as_json(only: [:name, :summary, :date_of_publication, :number_of_sales, :author_id])
+    end
 
     # Método para obtener el autor del libro
     def author

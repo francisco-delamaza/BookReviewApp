@@ -155,8 +155,9 @@ class BooksController < ApplicationController
   skip = (page - 1) * per_page
 
   # Buscar los libros que contengan alguna de las palabras clave en el resumen
-  view = Book.by_summary
-  @books = view.keys(search_text).limit(per_page).skip(skip)
+  #view = Book.by_summary
+  #@books = view.keys(search_text).limit(per_page).skip(skip)
+  @books = Book.search(params[:search]).records
 
   # Obtener el total de resultados para manejar la paginación
   total_books = view.keys(search_text).count

@@ -1,14 +1,12 @@
-version: '3.8'
-
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3  # Usa una versión compatible con las gemas que has instalado
+  opensearch:
+    image: opensearchproject/opensearch:latest
     environment:
-      - discovery.type=single-node  # Configuración para que Elasticsearch funcione en modo de un solo nodo
+      discovery.type: single-node
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: cambiar a clave de su
     ports:
-      - "9200:9200"  # Expone el puerto 9200 para que la aplicación Rails pueda conectarse
-    volumes:
-      - esdata:/usr/share/elasticsearch/data  # Volumen para persistir los datos de Elasticsearch
+      - "9200:9200"
+      - "9600:9600"
 
 volumes:
   esdata:
