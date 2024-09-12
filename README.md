@@ -58,3 +58,16 @@ Para detener y eliminar los contenedores, ejecuta:
 # Consideraciones
 
 Por temas de tiempo al generar datos con los contenedores redujimos los datos autogenerados a dos autores con sus libros, ventas y reseñas respectivas. En la tarea pasada se puede ver que la generación de datos era la requerida para esa entrega y que en esta lo cambiamos solo por conveniencia.
+
+
+---
+
+# Ejecutar Múltiples Contenedores
+
+Si deseas ejecutar la aplicación con múltiples servicios, como el proxy inverso o cualquier otra configuración adicional, puedes utilizar el siguiente comando. Esto te permitirá correr contenedores con configuraciones específicas desde múltiples archivos de Docker Compose:
+
+```bash
+docker-compose -f docker-compose.yml -f <nombre_del_contenedo.yml> up --build --detach
+```
+
+Este comando construirá y ejecutará los contenedores en segundo plano utilizando los archivos `docker-compose.yml` y `docker-compose.proxy.yml`. Asegúrate de que ambos archivos estén correctamente configurados para cada servicio que desees levantar.
